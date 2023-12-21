@@ -8,7 +8,7 @@ class LogoPage extends StatelessWidget {
     return Container(
       height: MediaQuery.of(context).size.height,
       decoration: const BoxDecoration(
-        color: Colors.deepPurple,
+        color: Colors.white10,
       ),
       child: const FadeInImage(
         placeholder: AssetImage('assets/images/empty.png'),

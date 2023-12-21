@@ -32,12 +32,13 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      showSemanticsDebugger: false,
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: isLogoPage ? const LogoPage() : const Home(),
+      home: WillPopScope(
+          onWillPop: () async => false,
+          child: isLogoPage ? const LogoPage() : const Home()),
     );
   }
 }
