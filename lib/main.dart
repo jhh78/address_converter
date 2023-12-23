@@ -1,11 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_core/core/logo.dart';
-import 'package:flutter_core/home.dart';
+import 'package:flutter_core/screens/home.dart';
+import 'package:flutter_core/screens/logo.dart';
 
 void main() {
-  runApp(const MaterialApp(home: MyApp()));
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: MyApp(),
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -16,29 +20,23 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  bool isLogoPage = true;
+  bool _isLogo = true;
 
   @override
   void initState() {
     super.initState();
+    // 어플리케이션 초기화 코드 넣을것
     Timer(const Duration(seconds: 3), () {
       setState(() {
-        isLogoPage = false;
+        _isLogo = false;
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-      ),
-      home: WillPopScope(
-          onWillPop: () async => false,
-          child: isLogoPage ? const LogoPage() : const Home()),
-    );
+    return WillPopScope(
+        onWillPop: () async => false,
+        child: _isLogo ? const LogoScreen() : const HomeScreen());
   }
 }
