@@ -28,6 +28,14 @@ class SearchWordState extends State<SearchWord> {
             onSubmitted: (String searchWord) {
               debugPrint(
                   '???????????????????????????????????????? $searchWord');
+              jaModel.initDb().then((_) {
+                jaModel.searchFromUserInput(searchWord).then((value) {
+                  debugPrint('???????????????????????????????????????? $value');
+                  setState(() {
+                    addressList = value;
+                  });
+                });
+              });
             },
             textInputAction: TextInputAction.search,
           ),
@@ -36,9 +44,12 @@ class SearchWordState extends State<SearchWord> {
           child: ListView.separated(
             itemCount: addressList.length,
             itemBuilder: (context, builder) {
-              return ListTile(
-                title: Text(addressList[builder].toString()),
-              );
+              return Column(children: [
+                ListTile(
+                  subtitle: Text(addressList[builder].jp ?? '-1'),
+                  title: Text(addressList[builder].en ?? '-1'),
+                ),
+              ]);
             },
             separatorBuilder: (context, builder) {
               return const Divider(

@@ -1,11 +1,25 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_core/screens/home.dart';
 import 'package:flutter_core/screens/logo.dart';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  var dbDir = await getDatabasesPath();
+  var dbPath = join(dbDir, "app.db");
+
+  // TODO : db 파일이 없을 경우에만 복사하도록 수정
+
+  ByteData data = await rootBundle.load("assets/app.db");
+  List<int> bytes =
+      data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+  await File(dbPath).writeAsBytes(bytes);
+
   runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
     home: MyApp(),
