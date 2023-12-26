@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_core/models/db.dart';
+import 'package:flutter_core/screens/search_word.dart';
+import 'package:flutter_core/screens/search_zip.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 //TODO:::핸드폰에 데이터 저장하기
@@ -15,19 +16,23 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  List<Map<String, dynamic>> jsonList = [];
-  DBModel dbModel = DBModel();
-
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   BannerAd? _bannerAd;
-  bool _isLoaded = false;
+  bool _isAdLoaded = false;
+  late final _tabController;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    jsonList = dbModel.doSelect();
+    _tabController = TabController(length: 2, vsync: this);
     loadAd();
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+    _bannerAd?.dispose();
   }
 
   void loadAd() {
@@ -40,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
         onAdLoaded: (ad) {
           debugPrint('>>>>>>>>>>>>>>>>>>>>>>>>>>>>> $ad loaded.');
           setState(() {
-            _isLoaded = true;
+            _isAdLoaded = true;
           });
         },
         // Called when an ad request failed.
@@ -55,50 +60,28 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('into build $jsonList');
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           title: const Text('英語住所変換'),
+          bottom: TabBar(
+            controller: _tabController,
+            tabs: const [
+              Tab(
+                text: '郵便番号検索',
+              ),
+              Tab(
+                text: '住所検索',
+              ),
+            ],
+          ),
           centerTitle: true,
         ),
-        body: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(10),
-              child: TextField(
-                  decoration: const InputDecoration(
-                    alignLabelWithHint: true,
-                    border: OutlineInputBorder(),
-                    labelText: '変換する住所を入力してください。',
-                  ),
-                  onSubmitted: (String searchWord) {
-                    // TODO::: API처리
-                    debugPrint(
-                        '???????????????????????????????????????? $searchWord');
-                  },
-                  textInputAction: TextInputAction.search,
-                  maxLines: 5,
-                  minLines: 5),
-            ),
-            Expanded(
-              child: ListView.separated(
-                itemCount: jsonList.length,
-                itemBuilder: (context, builder) {
-                  return ListTile(
-                    title: Text(jsonList[builder].toString()),
-                  );
-                },
-                separatorBuilder: (context, builder) {
-                  return const Divider(
-                    height: 2,
-                  );
-                },
-              ),
-            )
-          ],
+        body: TabBarView(
+          controller: _tabController,
+          children: [SearchZip(), SearchWord()],
         ),
-        bottomNavigationBar: _isLoaded
+        bottomNavigationBar: _isAdLoaded
             ? SizedBox(
                 height: _bannerAd!.size.height.toDouble(),
                 width: _bannerAd!.size.width.toDouble(),
