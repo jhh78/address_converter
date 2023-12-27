@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_core/db/jp_address.dart';
+import 'package:flutter_core/models/app_config.dart';
 import 'package:flutter_core/models/ja_search.dart';
+import 'package:flutter_core/parts/search_result.dart';
 
 class SearchZip extends StatefulWidget {
   const SearchZip({super.key});
@@ -20,33 +22,31 @@ class SearchZipState extends State<SearchZip> {
         Container(
           padding: const EdgeInsets.all(10),
           child: TextField(
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               alignLabelWithHint: true,
-              border: OutlineInputBorder(),
-              labelText: '例）1638001',
+              border: const OutlineInputBorder(),
+              labelText: AppConfig.zipCodeSearchHint,
             ),
             onSubmitted: (String searchWord) {
               debugPrint(
                   '???????????????????????????????????????? $searchWord');
+              jaModel.initDb().then((_) {
+                jaModel.searchFromZipCode(searchWord).then((value) {
+                  debugPrint('???????????????????????????????????????? $value');
+                  setState(() {
+                    addressList = value;
+                  });
+                });
+              });
             },
             keyboardType: TextInputType.number,
             textInputAction: TextInputAction.search,
           ),
         ),
         Expanded(
-          child: ListView.separated(
-            itemCount: addressList.length,
-            itemBuilder: (context, builder) {
-              return ListTile(
-                title: Text(addressList[builder].toString()),
-              );
-            },
-            separatorBuilder: (context, builder) {
-              return const Divider(
-                height: 2,
-              );
-            },
-          ),
+          child: Container(
+              padding: const EdgeInsets.only(top: 10, bottom: 10),
+              child: SearchResult(addressList: addressList)),
         )
       ],
     );

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_core/db/jp_address.dart';
+import 'package:flutter_core/models/app_config.dart';
 import 'package:flutter_core/models/ja_search.dart';
+import 'package:flutter_core/parts/search_result.dart';
 
 class SearchWord extends StatefulWidget {
   const SearchWord({super.key});
@@ -20,10 +22,10 @@ class SearchWordState extends State<SearchWord> {
         Container(
           padding: const EdgeInsets.all(10),
           child: TextField(
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               alignLabelWithHint: true,
-              border: OutlineInputBorder(),
-              labelText: '例）東京都渋谷区',
+              border: const OutlineInputBorder(),
+              labelText: AppConfig.addressSearchHint,
             ),
             onSubmitted: (String searchWord) {
               debugPrint(
@@ -41,22 +43,7 @@ class SearchWordState extends State<SearchWord> {
           ),
         ),
         Expanded(
-          child: ListView.separated(
-            itemCount: addressList.length,
-            itemBuilder: (context, builder) {
-              return Column(children: [
-                ListTile(
-                  subtitle: Text(addressList[builder].jp ?? '-1'),
-                  title: Text(addressList[builder].en ?? '-1'),
-                ),
-              ]);
-            },
-            separatorBuilder: (context, builder) {
-              return const Divider(
-                height: 2,
-              );
-            },
-          ),
+          child: SearchResult(addressList: addressList),
         )
       ],
     );

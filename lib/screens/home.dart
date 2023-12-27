@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/models/app_config.dart';
 import 'package:flutter_core/screens/search_word.dart';
 import 'package:flutter_core/screens/search_zip.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-//TODO:::핸드폰에 데이터 저장하기
-//TODO:::핸드폰에 데이터 불러오기
-//TODO:::핸드폰에 데이터 삭제하기
-//TODO:::API 연동하기
-//TODO:::UI만들기
+//TODO:::UI수정
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -37,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   void loadAd() {
     _bannerAd = BannerAd(
-      adUnitId: 'ca-app-pub-3940256099942544/6300978111',
+      adUnitId: AppConfig.bannerAdUnitId(),
       request: const AdRequest(),
       size: AdSize.banner,
       listener: BannerAdListener(
@@ -63,15 +60,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('英語住所変換'),
+          title: Text(AppConfig.appTitle),
           bottom: TabBar(
             controller: _tabController,
-            tabs: const [
+            tabs: [
               Tab(
-                text: '郵便番号検索',
+                text: AppConfig.zipCodeSearchTitle,
               ),
               Tab(
-                text: '住所検索',
+                text: AppConfig.addressSearchTitle,
               ),
             ],
           ),
@@ -79,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         ),
         body: TabBarView(
           controller: _tabController,
-          children: [SearchZip(), SearchWord()],
+          children: const [SearchZip(), SearchWord()],
         ),
         bottomNavigationBar: _isAdLoaded
             ? SizedBox(

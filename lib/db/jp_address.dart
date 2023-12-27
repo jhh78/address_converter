@@ -1,21 +1,33 @@
 class JpAddress {
-  late String? zipcode;
+  late String? zip;
   late String? jp;
-  late String? en;
+  late String? enPrefectures;
+  late String? enCity;
+  late String? enTown;
 
-  JpAddress({this.zipcode, this.jp, this.en});
+  JpAddress({
+    this.zip,
+    this.jp,
+    this.enPrefectures,
+    this.enCity,
+    this.enTown,
+  });
 
   Map<String, dynamic> toMap() {
     return {
-      'zipcode': zipcode,
+      'zip': zip,
       'jp': jp,
-      'en': en,
+      'enPrefectures': enPrefectures,
+      'enCity': enCity,
+      'enTown': enTown,
     };
   }
 
   JpAddress.fromJson(Map<dynamic, dynamic> json) {
-    zipcode = json['zipcode'];
+    zip = json['zip'];
     jp = json['jp'];
-    en = json['en'];
+    enPrefectures = json['enPrefectures'];
+    enCity = json['enCity'];
+    enTown = json['enTown'];
   }
 }
