@@ -68,7 +68,7 @@ flutter:
 
     assets:
         - assets/images/
-        - assets/app.202312271800.db
+        - assets/202312311430.db
     #    - assets/icons/
     #    - assets/fonts/
     # An image asset can refer to one or more resolution-specific "variants", see

@@ -4,8 +4,6 @@ import 'package:flutter_core/screens/search_word.dart';
 import 'package:flutter_core/screens/search_zip.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-//TODO:::UI수정
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -16,7 +14,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   BannerAd? _bannerAd;
   bool _isAdLoaded = false;
-  late final _tabController;
+  late final TabController _tabController;
 
   @override
   void initState() {

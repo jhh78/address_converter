@@ -2,14 +2,72 @@ import 'package:flutter/material.dart';
 import 'package:flutter_core/db/jp_address.dart';
 import 'package:flutter_core/models/app_config.dart';
 
-class SearchResult extends StatelessWidget {
+class SearchResult extends StatefulWidget {
   final List<JpAddress> addressList;
 
   const SearchResult({super.key, required this.addressList});
 
   @override
+  State<SearchResult> createState() => _SearchResultState();
+}
+
+class _SearchResultState extends State<SearchResult> {
+  // 주소양식 : マンションの名前, 部屋番号, 番地, 市町村, 都道府県, 郵便番号, 国名
+  void _showDialog(BuildContext context, JpAddress addressInfo) {
+    final String zipcode =
+        '${addressInfo.zip!.substring(0, 3)}-${addressInfo.zip!.substring(3)}';
+
+    AlertDialog dialog = AlertDialog(
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            AppConfig.addressDialogHintDescriptionA,
+            style: const TextStyle(fontSize: 18, color: Colors.blueAccent),
+          ),
+          Text(
+            AppConfig.addressDialogHintDescriptionB,
+            style: const TextStyle(fontSize: 18, color: Colors.blueAccent),
+          ),
+          Text(addressInfo.enTown.toString(),
+              style: const TextStyle(fontSize: 18)),
+          Text(addressInfo.enCity.toString(),
+              style: const TextStyle(fontSize: 18)),
+          Text(addressInfo.enPrefectures.toString(),
+              style: const TextStyle(fontSize: 18)),
+          Text(zipcode, style: const TextStyle(fontSize: 18)),
+          Text(AppConfig.countryName, style: const TextStyle(fontSize: 18)),
+          const SizedBox(height: 15),
+          Text(AppConfig.addressDialogHintDescriptionC,
+              style: const TextStyle(fontSize: 12, color: Colors.redAccent)),
+          Text(AppConfig.addressDialogHintDescriptionD,
+              style: const TextStyle(fontSize: 12, color: Colors.redAccent)),
+          Text(AppConfig.addressDialogHintDescriptionE,
+              style: const TextStyle(fontSize: 12, color: Colors.redAccent)),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text(AppConfig.addressDialogClose),
+        ),
+      ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return dialog;
+      },
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (addressList.isEmpty) {
+    if (widget.addressList.isEmpty) {
       return Center(
         child: Text(
           AppConfig.noSearchResult,
@@ -22,19 +80,13 @@ class SearchResult extends StatelessWidget {
     }
 
     return ListView.separated(
-      itemCount: addressList.length,
+      itemCount: widget.addressList.length,
       itemBuilder: (context, builder) {
+        JpAddress addressInfo = widget.addressList[builder];
+
         return ListTile(
-          title: Text(addressList[builder].jp ?? 'na'),
-          onTap: () {
-            // 주소양식 : マンションの名前, 部屋番号, 番地, 市町村, 都道府県, 郵便番号, 国名
-            // TODO ::: 탭 했을때 팝업으로 우편번호 최종 완성본이 보이도록 하기
-            final String zipcode =
-                '${addressList[builder].zip!.substring(0, 3)}-${addressList[builder].zip!.substring(3)}';
-            final String addr =
-                '「マンションの名前」「部屋番号」「番地」${addressList[builder].enTown}、${addressList[builder].enCity}、${addressList[builder].enPrefectures}、$zipcode、Japan';
-            debugPrint(addr);
-          },
+          title: Text(addressInfo.jp ?? 'na'),
+          onTap: () => _showDialog(context, addressInfo),
         );
       },
       separatorBuilder: (context, builder) {
