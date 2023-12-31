@@ -8,6 +8,9 @@ import 'package:flutter_core/screens/home.dart';
 import 'package:flutter_core/screens/logo.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter/foundation.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +27,17 @@ void main() async {
   }
 
   runApp(const MaterialApp(
-    debugShowCheckedModeBanner: false,
+    debugShowCheckedModeBanner: !kReleaseMode,
+    localizationsDelegates: [
+      AppLocalizations.delegate,
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+    ],
+    supportedLocales: [
+      Locale('ja', ''),
+      Locale('ko', ''),
+    ],
     home: MyApp(),
   ));
 }

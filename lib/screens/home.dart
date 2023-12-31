@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_core/models/app_config.dart';
-import 'package:flutter_core/screens/search_word.dart';
-import 'package:flutter_core/screens/search_zip.dart';
+import 'package:flutter_core/screens/jp_search.dart';
+import 'package:flutter_core/screens/kr_search.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -58,15 +59,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(AppConfig.appTitle),
+          title: Text(AppLocalizations.of(context)!.appTitle),
           bottom: TabBar(
             controller: _tabController,
             tabs: [
               Tab(
-                text: AppConfig.zipCodeSearchTitle,
+                text: AppLocalizations.of(context)!.tab1Title,
               ),
               Tab(
-                text: AppConfig.addressSearchTitle,
+                text: AppLocalizations.of(context)!.tab2Title,
               ),
             ],
           ),
@@ -74,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         ),
         body: TabBarView(
           controller: _tabController,
-          children: const [SearchZip(), SearchWord()],
+          children: const [KRSearch(), JPSearch()],
         ),
         bottomNavigationBar: _isAdLoaded
             ? SizedBox(

@@ -1,13 +1,13 @@
-class JpAddress {
+class JPAddress {
   late String? zip;
-  late String? jp;
+  late String? address;
   late String? enPrefectures;
   late String? enCity;
   late String? enTown;
 
-  JpAddress({
+  JPAddress({
     this.zip,
-    this.jp,
+    this.address,
     this.enPrefectures,
     this.enCity,
     this.enTown,
@@ -16,16 +16,16 @@ class JpAddress {
   Map<String, dynamic> toMap() {
     return {
       'zip': zip,
-      'jp': jp,
+      'address': address,
       'enPrefectures': enPrefectures,
       'enCity': enCity,
       'enTown': enTown,
     };
   }
 
-  JpAddress.fromJson(Map<dynamic, dynamic> json) {
+  JPAddress.fromJson(Map<dynamic, dynamic> json) {
     zip = json['zip'];
-    jp = json['jp'];
+    address = json['address'];
     enPrefectures = json['enPrefectures'];
     enCity = json['enCity'];
     enTown = json['enTown'];

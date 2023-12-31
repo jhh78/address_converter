@@ -1,0 +1,18 @@
+{
+  "@@locale":"en",
+  "appTitle":"English address conversion app",
+  "tab1Title":"korea address",
+  "tab2Title":"Japan address",
+  "jpSearchHint":"Please enter your Japanese address ex) 新宿、北海道札幌市",
+  "krSearchHint":"Please enter your Hangul address ex) 동두천길, 대학로14길",
+  "addressDialogTitle":"Converted address",
+  "addressDialogClose":"close",
+  "addressDialogHintDescriptionA":"Apartment name",
+  "addressDialogHintDescriptionB":"street address",
+  "addressDialogHintDescriptionC":"※Please check the apartment name before entering it.",
+  "addressDialogHintDescriptionD":"※Please check the room number and enter it.",
+  "addressDialogHintDescriptionE":"※Please check the address before entering it.",
+  "noSearchResult1":"No results found",
+  "noSearchResult2":"Please search in small units",
+  "countryName": "U.S.A"
+}

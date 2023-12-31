@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_core/db/jp_address.dart';
-import 'package:flutter_core/models/app_config.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchResult extends StatefulWidget {
-  final List<JpAddress> addressList;
+  final List<dynamic> addressInfo;
+  final String lang;
 
-  const SearchResult({super.key, required this.addressList});
+  const SearchResult({Key? key, required this.addressInfo, required this.lang})
+      : super(key: key);
 
   @override
   State<SearchResult> createState() => _SearchResultState();
 }
 
 class _SearchResultState extends State<SearchResult> {
+  final String koreaName = "Republic of Korea";
+  final String japanName = "Japan";
+
   // 주소양식 : マンションの名前, 部屋番号, 番地, 市町村, 都道府県, 郵便番号, 国名
-  void _showDialog(BuildContext context, JpAddress addressInfo) {
+  void _showDialog(BuildContext context, dynamic addressInfo) {
     final String zipcode =
         '${addressInfo.zip!.substring(0, 3)}-${addressInfo.zip!.substring(3)}';
 
@@ -23,27 +28,34 @@ class _SearchResultState extends State<SearchResult> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            AppConfig.addressDialogHintDescriptionA,
+            AppLocalizations.of(context)!.addressDialogHintDescriptionA,
             style: const TextStyle(fontSize: 18, color: Colors.blueAccent),
           ),
           Text(
-            AppConfig.addressDialogHintDescriptionB,
+            AppLocalizations.of(context)!.addressDialogHintDescriptionB,
             style: const TextStyle(fontSize: 18, color: Colors.blueAccent),
           ),
-          Text(addressInfo.enTown.toString(),
-              style: const TextStyle(fontSize: 18)),
+          if (widget.lang == 'ko')
+            Text(
+              addressInfo.enStreet.toString(),
+              style: const TextStyle(fontSize: 18),
+            ),
+          if (addressInfo.enTown.toString().isNotEmpty)
+            Text(addressInfo.enTown.toString(),
+                style: const TextStyle(fontSize: 18)),
           Text(addressInfo.enCity.toString(),
               style: const TextStyle(fontSize: 18)),
           Text(addressInfo.enPrefectures.toString(),
               style: const TextStyle(fontSize: 18)),
           Text(zipcode, style: const TextStyle(fontSize: 18)),
-          Text(AppConfig.countryName, style: const TextStyle(fontSize: 18)),
+          Text(widget.lang == 'ko' ? koreaName : japanName,
+              style: const TextStyle(fontSize: 18)),
           const SizedBox(height: 15),
-          Text(AppConfig.addressDialogHintDescriptionC,
+          Text(AppLocalizations.of(context)!.addressDialogHintDescriptionC,
               style: const TextStyle(fontSize: 12, color: Colors.redAccent)),
-          Text(AppConfig.addressDialogHintDescriptionD,
+          Text(AppLocalizations.of(context)!.addressDialogHintDescriptionD,
               style: const TextStyle(fontSize: 12, color: Colors.redAccent)),
-          Text(AppConfig.addressDialogHintDescriptionE,
+          Text(AppLocalizations.of(context)!.addressDialogHintDescriptionE,
               style: const TextStyle(fontSize: 12, color: Colors.redAccent)),
         ],
       ),
@@ -52,7 +64,7 @@ class _SearchResultState extends State<SearchResult> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: Text(AppConfig.addressDialogClose),
+          child: Text(AppLocalizations.of(context)!.addressDialogClose),
         ),
       ],
     );
@@ -67,25 +79,38 @@ class _SearchResultState extends State<SearchResult> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.addressList.isEmpty) {
+    if (widget.addressInfo.isEmpty) {
       return Center(
-        child: Text(
-          AppConfig.noSearchResult,
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                AppLocalizations.of(context)!.noSearchResult1,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                AppLocalizations.of(context)!.noSearchResult2,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
         ),
       );
     }
 
     return ListView.separated(
-      itemCount: widget.addressList.length,
+      itemCount: widget.addressInfo.length,
       itemBuilder: (context, builder) {
-        JpAddress addressInfo = widget.addressList[builder];
-
+        dynamic addressInfo = widget.addressInfo[builder];
         return ListTile(
-          title: Text(addressInfo.jp ?? 'na'),
+          title: Text(addressInfo.address ?? 'na'),
           onTap: () => _showDialog(context, addressInfo),
         );
       },
