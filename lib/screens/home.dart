@@ -1,7 +1,7 @@
+import 'package:english_address_converter/utils/app_config.dart';
+import 'package:english_address_converter/screens/jp_search.dart';
+import 'package:english_address_converter/screens/kr_search.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_core/models/app_config.dart';
-import 'package:flutter_core/screens/jp_search.dart';
-import 'package:flutter_core/screens/kr_search.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

@@ -3,9 +3,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_core/models/app_config.dart';
-import 'package:flutter_core/screens/home.dart';
-import 'package:flutter_core/screens/logo.dart';
+import 'package:english_address_converter/utils/app_config.dart';
+import 'package:english_address_converter/screens/home.dart';
+import 'package:english_address_converter/screens/logo.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

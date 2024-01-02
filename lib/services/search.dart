@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_core/db/jp_address.dart';
-import 'package:flutter_core/db/kr_address.dart';
-import 'package:flutter_core/models/app_config.dart';
+import 'package:english_address_converter/models/jp_address.dart';
+import 'package:english_address_converter/models/kr_address.dart';
+import 'package:english_address_converter/utils/app_config.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 

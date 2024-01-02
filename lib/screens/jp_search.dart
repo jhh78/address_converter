@@ -1,7 +1,7 @@
+import 'package:english_address_converter/widgets/search_result.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_core/db/jp_address.dart';
-import 'package:flutter_core/models/search.dart';
-import 'package:flutter_core/parts/search_result.dart';
+import 'package:english_address_converter/models/jp_address.dart';
+import 'package:english_address_converter/services/search.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class JPSearch extends StatefulWidget {
