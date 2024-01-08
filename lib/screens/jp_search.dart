@@ -14,6 +14,7 @@ class JPSearch extends StatefulWidget {
 class JPSearchState extends State<JPSearch> {
   List<JPAddress> addressList = [];
   SearchModel searchModel = SearchModel();
+  bool _isProcessing = false;
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +31,15 @@ class JPSearchState extends State<JPSearch> {
             onSubmitted: (String searchWord) {
               debugPrint(
                   '???????????????????????????????????????? $searchWord');
+              setState(() {
+                _isProcessing = true;
+              });
               searchModel.initDb().then((_) {
                 searchModel.searchJapanAddress(searchWord).then((value) {
                   debugPrint('???????????????????????????????????????? $value');
                   setState(() {
                     addressList = value;
+                    _isProcessing = false;
                   });
                 });
               });
@@ -43,10 +48,14 @@ class JPSearchState extends State<JPSearch> {
           ),
         ),
         Expanded(
-          child: SearchResult(
-            addressInfo: addressList,
-            lang: 'ja',
-          ),
+          child: _isProcessing
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : SearchResult(
+                  addressInfo: addressList,
+                  lang: 'ja',
+                ),
         )
       ],
     );

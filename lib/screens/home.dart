@@ -51,7 +51,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ad.dispose();
         },
       ),
-    )..load();
+    )..load().then((value) {
+        setState(() {
+          _isAdLoaded = true;
+        });
+      });
   }
 
   @override
@@ -60,23 +64,27 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       child: Scaffold(
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.appTitle),
-          bottom: TabBar(
-            controller: _tabController,
-            tabs: [
-              Tab(
-                text: AppLocalizations.of(context)!.tab1Title,
-              ),
-              Tab(
-                text: AppLocalizations.of(context)!.tab2Title,
-              ),
-            ],
-          ),
+          bottom: !_isAdLoaded
+              ? null
+              : TabBar(
+                  controller: _tabController,
+                  tabs: [
+                    Tab(
+                      text: AppLocalizations.of(context)!.tab1Title,
+                    ),
+                    Tab(
+                      text: AppLocalizations.of(context)!.tab2Title,
+                    ),
+                  ],
+                ),
           centerTitle: true,
         ),
-        body: TabBarView(
-          controller: _tabController,
-          children: const [KRSearch(), JPSearch()],
-        ),
+        body: !_isAdLoaded
+            ? const Center(child: CircularProgressIndicator())
+            : TabBarView(
+                controller: _tabController,
+                children: const [KRSearch(), JPSearch()],
+              ),
         bottomNavigationBar: _isAdLoaded
             ? SizedBox(
                 height: _bannerAd!.size.height.toDouble(),

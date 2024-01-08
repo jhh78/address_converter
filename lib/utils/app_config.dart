@@ -11,4 +11,12 @@ class AppConfig {
 
     return 'ca-app-pub-3940256099942544/6300978111';
   }
+
+  static String interstitialAdUnitId() {
+    if (kReleaseMode) {
+      return 'ca-app-pub-9674517651101637/4168155732';
+    }
+
+    return 'ca-app-pub-3940256099942544/1033173712';
+  }
 }

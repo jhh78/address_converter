@@ -14,5 +14,6 @@
   "addressDialogHintDescriptionE":"※番地は確認の上、記入してください",
   "noSearchResult1":"検索結果がありません",
   "noSearchResult2":"小さい単位で検索をしてください",
-  "countryName": "Japan"
+  "countryName": "Japan",
+  "searchResultTitle": "変換結果"
 }

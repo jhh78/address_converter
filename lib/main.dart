@@ -26,19 +26,22 @@ void main() async {
     await File(dbPath).writeAsBytes(bytes);
   }
 
-  runApp(const MaterialApp(
+  runApp(MaterialApp(
+    theme: ThemeData(
+      brightness: Brightness.dark,
+    ),
     debugShowCheckedModeBanner: !kReleaseMode,
-    localizationsDelegates: [
+    localizationsDelegates: const [
       AppLocalizations.delegate,
       GlobalMaterialLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,
       GlobalCupertinoLocalizations.delegate,
     ],
-    supportedLocales: [
+    supportedLocales: const [
       Locale('ja', ''),
       Locale('ko', ''),
     ],
-    home: MyApp(),
+    home: const MyApp(),
   ));
 }
 

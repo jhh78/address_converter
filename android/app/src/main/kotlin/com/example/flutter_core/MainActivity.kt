@@ -1,4 +1,4 @@
-package com.example.flutter_core
+package com.flutter.english_address_converter
 
 import io.flutter.embedding.android.FlutterActivity
 

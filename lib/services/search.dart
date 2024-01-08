@@ -24,6 +24,7 @@ class SearchModel {
       List<JPAddress> todos = [];
       List<Map> maps = await db.query('jp_address',
           columns: ['*'],
+          orderBy: 'zip',
           where: 'address like ?',
           whereArgs: ['%$inputValue%']);
       for (var map in maps) {
@@ -41,6 +42,7 @@ class SearchModel {
       List<KRAddress> todos = [];
       List<Map> maps = await db.query('kr_address',
           columns: ['*'],
+          orderBy: 'zip',
           where: 'address like ?',
           whereArgs: ['%$inputValue%']);
       for (var map in maps) {

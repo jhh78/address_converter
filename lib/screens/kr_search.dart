@@ -14,6 +14,7 @@ class KRSearch extends StatefulWidget {
 class KRSearchState extends State<KRSearch> {
   List<KRAddress> addressList = [];
   SearchModel searchModel = SearchModel();
+  bool _isProcessing = false;
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +31,15 @@ class KRSearchState extends State<KRSearch> {
             onSubmitted: (String searchWord) {
               debugPrint(
                   '???????????????????????????????????????? $searchWord');
+              setState(() {
+                _isProcessing = true;
+              });
               searchModel.initDb().then((_) {
                 searchModel.searchKoreaAddress(searchWord).then((value) {
                   debugPrint('???????????????????????????????????????? $value');
                   setState(() {
                     addressList = value;
+                    _isProcessing = false;
                   });
                 });
               });
@@ -43,10 +48,14 @@ class KRSearchState extends State<KRSearch> {
           ),
         ),
         Expanded(
-          child: SearchResult(
-            addressInfo: addressList,
-            lang: 'ko',
-          ),
+          child: _isProcessing
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : SearchResult(
+                  addressInfo: addressList,
+                  lang: 'ko',
+                ),
         )
       ],
     );

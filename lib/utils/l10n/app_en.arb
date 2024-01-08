@@ -14,5 +14,6 @@
   "addressDialogHintDescriptionE":"※Please check the address before entering it.",
   "noSearchResult1":"No results found",
   "noSearchResult2":"Please search in small units",
-  "countryName": "U.S.A"
+  "countryName": "U.S.A", 
+  "searchResultTitle": "Transform Results"
 }

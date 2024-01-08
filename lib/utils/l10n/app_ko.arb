@@ -14,5 +14,6 @@
   "addressDialogHintDescriptionE":"※번지를 확인해주세요",
   "noSearchResult1":"검색 결과가 없습니다",
   "noSearchResult2":"좀더 작은단위로 검색해 주세요",
-  "countryName": "Korea"
+  "countryName": "Korea", 
+  "searchResultTitle": "변환결과"
 }
