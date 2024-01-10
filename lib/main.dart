@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:english_address_converter/utils/app_config.dart';
 import 'package:english_address_converter/screens/home.dart';
 import 'package:english_address_converter/screens/logo.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -14,6 +15,7 @@ import 'package:flutter/foundation.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
   var dbDir = await getDatabasesPath();
   var dbPath = join(dbDir, AppConfig.dbFileName);
   var file = File(dbPath);

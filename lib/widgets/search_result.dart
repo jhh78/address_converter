@@ -1,6 +1,8 @@
+import 'package:english_address_converter/utils/app_config.dart';
 import 'package:english_address_converter/widgets/search_result_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class SearchResult extends StatefulWidget {
   final List<dynamic> addressInfo;

@@ -4,6 +4,7 @@ class JPAddress {
   late String? enPrefectures;
   late String? enCity;
   late String? enTown;
+  late String? enStreet;
 
   JPAddress({
     this.zip,
@@ -11,6 +12,7 @@ class JPAddress {
     this.enPrefectures,
     this.enCity,
     this.enTown,
+    this.enStreet,
   });
 
   Map<String, dynamic> toMap() {
@@ -20,6 +22,7 @@ class JPAddress {
       'enPrefectures': enPrefectures,
       'enCity': enCity,
       'enTown': enTown,
+      'enStreet': null
     };
   }
 
@@ -29,5 +32,6 @@ class JPAddress {
     enPrefectures = json['enPrefectures'];
     enCity = json['enCity'];
     enTown = json['enTown'];
+    enStreet = null;
   }
 }
