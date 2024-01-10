@@ -28,6 +28,7 @@ void main() async {
 
   runApp(MaterialApp(
     theme: ThemeData(
+      useMaterial3: true,
       brightness: Brightness.dark,
     ),
     debugShowCheckedModeBanner: !kReleaseMode,

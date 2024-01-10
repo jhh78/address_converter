@@ -8,6 +8,10 @@ import 'package:sqflite/sqflite.dart';
 class SearchModel {
   late Database db;
 
+  String _trimInputValue(String inputValue) {
+    return inputValue.replaceAll(RegExp("\\s"), "");
+  }
+
   Future initDb() async {
     try {
       var dbDir = await getDatabasesPath();
@@ -21,10 +25,11 @@ class SearchModel {
 
   Future<List<JPAddress>> searchJapanAddress(String inputValue) async {
     try {
+      inputValue = _trimInputValue(inputValue);
       List<JPAddress> todos = [];
       List<Map> maps = await db.query('jp_address',
           columns: ['*'],
-          orderBy: 'zip',
+          orderBy: 'address',
           where: 'address like ?',
           whereArgs: ['%$inputValue%']);
       for (var map in maps) {
@@ -39,10 +44,12 @@ class SearchModel {
 
   Future<List<KRAddress>> searchKoreaAddress(String inputValue) async {
     try {
+      inputValue = _trimInputValue(inputValue);
+
       List<KRAddress> todos = [];
       List<Map> maps = await db.query('kr_address',
           columns: ['*'],
-          orderBy: 'zip',
+          orderBy: 'address',
           where: 'address like ?',
           whereArgs: ['%$inputValue%']);
       for (var map in maps) {

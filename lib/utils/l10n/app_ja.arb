@@ -15,5 +15,8 @@
   "noSearchResult1":"検索結果がありません",
   "noSearchResult2":"小さい単位で検索をしてください",
   "countryName": "Japan",
-  "searchResultTitle": "変換結果"
+  "searchResultTitle": "変換結果",
+  "searchResultCartTitle1": "項目別アドレス",
+  "searchResultCartTitle2": "アドレス",
+  "searchResultApendTIp": "ここに残りのアドレスを入れます"
 }

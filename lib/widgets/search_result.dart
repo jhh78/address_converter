@@ -1,3 +1,4 @@
+import 'package:english_address_converter/widgets/search_result_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -51,7 +52,7 @@ class _SearchResultState extends State<SearchResult> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ResultScreen(
+                  builder: (context) => ResultInfo(
                     info: addressInfo,
                     lang: widget.lang,
                   ),
@@ -65,65 +66,5 @@ class _SearchResultState extends State<SearchResult> {
         );
       },
     );
-  }
-}
-
-// 주소양식 : マンションの名前, 部屋番号, 番地, 市町村, 都道府県, 郵便番号, 国名
-class ResultScreen extends StatelessWidget {
-  final dynamic info;
-  final String lang;
-  final String koreaName = "Republic of Korea";
-  final String japanName = "Japan";
-
-  const ResultScreen({Key? key, required this.info, required this.lang})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(AppLocalizations.of(context)!.searchResultTitle),
-          centerTitle: true,
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                AppLocalizations.of(context)!.addressDialogHintDescriptionA,
-                style: const TextStyle(fontSize: 18, color: Colors.blueAccent),
-              ),
-              Text(
-                AppLocalizations.of(context)!.addressDialogHintDescriptionB,
-                style: const TextStyle(fontSize: 18, color: Colors.blueAccent),
-              ),
-              if (lang == 'ko')
-                Text(
-                  info.enStreet.toString(),
-                  style: const TextStyle(fontSize: 18),
-                ),
-              if (info.enTown.toString().isNotEmpty)
-                Text(info.enTown.toString(),
-                    style: const TextStyle(fontSize: 18)),
-              Text(info.enCity.toString(),
-                  style: const TextStyle(fontSize: 18)),
-              Text(info.enPrefectures.toString(),
-                  style: const TextStyle(fontSize: 18)),
-              Text(info.zip.toString(), style: const TextStyle(fontSize: 18)),
-              Text(lang == 'ko' ? koreaName : japanName,
-                  style: const TextStyle(fontSize: 18)),
-              const SizedBox(height: 15),
-              Text(AppLocalizations.of(context)!.addressDialogHintDescriptionC,
-                  style:
-                      const TextStyle(fontSize: 12, color: Colors.redAccent)),
-              Text(AppLocalizations.of(context)!.addressDialogHintDescriptionD,
-                  style:
-                      const TextStyle(fontSize: 12, color: Colors.redAccent)),
-              Text(AppLocalizations.of(context)!.addressDialogHintDescriptionE,
-                  style:
-                      const TextStyle(fontSize: 12, color: Colors.redAccent)),
-            ],
-          ),
-        ));
   }
 }

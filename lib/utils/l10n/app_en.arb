@@ -15,5 +15,8 @@
   "noSearchResult1":"No results found",
   "noSearchResult2":"Please search in small units",
   "countryName": "U.S.A", 
-  "searchResultTitle": "Transform Results"
+  "searchResultTitle": "Transform Results",
+  "searchResultCartTitle1": "English address for each item",
+  "searchResultCartTitle2": "English address",
+  "searchResultApendTIp": "Put the rest of the address here"
 }

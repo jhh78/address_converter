@@ -15,5 +15,8 @@
   "noSearchResult1":"검색 결과가 없습니다",
   "noSearchResult2":"좀더 작은단위로 검색해 주세요",
   "countryName": "Korea", 
-  "searchResultTitle": "변환결과"
+  "searchResultTitle": "변환결과",
+  "searchResultCartTitle1": "항목별주소",
+  "searchResultCartTitle2": "주소",
+  "searchResultApendTIp": "이곳에 나머지 주소를 넣습니다"
 }
