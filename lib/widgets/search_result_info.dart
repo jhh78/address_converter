@@ -84,8 +84,8 @@ class _ResultInfoState extends State<ResultInfo> {
 
   @override
   Widget build(BuildContext context) {
-    final info = widget.info;
-    final counrty = widget.lang == 'ko' ? widget.koreaName : widget.koreaName;
+        final info = widget.info;
+    final counrty = widget.lang == 'ko' ? widget.koreaName : widget.japanName;
     return Scaffold(
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.searchResultTitle),
@@ -164,11 +164,18 @@ class _ResultInfoState extends State<ResultInfo> {
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                if (info.enStreet != null)
-                                  SearchResultTextBlock(
-                                    label: "Town",
-                                    value: info.enStreet.toString(),
-                                  ),
+                                SearchResultTextBlock(
+                                  label: "Street",
+                                  value: info.enStreet.toString() ?? ' ',
+                                ),
+                                const Divider(
+                                  height: 10,
+                                  color: Colors.white38,
+                                ),
+                                SearchResultTextBlock(
+                                  label: "Town",
+                                  value: info.enTown.toString(),
+                                ),
                                 const Divider(
                                   height: 10,
                                   color: Colors.white38,
@@ -246,6 +253,14 @@ class _ResultInfoState extends State<ResultInfo> {
                                 if (info.enStreet != null)
                                   Text(
                                     "${info.enStreet}",
+                                    style:
+                                        Theme.of(context).textTheme.titleMedium,
+                                    overflow: TextOverflow.clip,
+                                    maxLines: 2,
+                                  ),
+                                if (info.enTown != null && info.enTown != '')
+                                  Text(
+                                    "${info.enTown}",
                                     style:
                                         Theme.of(context).textTheme.titleMedium,
                                     overflow: TextOverflow.clip,
