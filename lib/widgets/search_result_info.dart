@@ -84,7 +84,7 @@ class _ResultInfoState extends State<ResultInfo> {
 
   @override
   Widget build(BuildContext context) {
-        final info = widget.info;
+    final info = widget.info;
     final counrty = widget.lang == 'ko' ? widget.koreaName : widget.japanName;
     return Scaffold(
         appBar: AppBar(
@@ -166,7 +166,9 @@ class _ResultInfoState extends State<ResultInfo> {
                                 ),
                                 SearchResultTextBlock(
                                   label: "Street",
-                                  value: info.enStreet.toString() ?? ' ',
+                                  value: info.enStreet == null
+                                      ? ''
+                                      : info.enStreet.toString(),
                                 ),
                                 const Divider(
                                   height: 10,
@@ -174,7 +176,9 @@ class _ResultInfoState extends State<ResultInfo> {
                                 ),
                                 SearchResultTextBlock(
                                   label: "Town",
-                                  value: info.enTown.toString(),
+                                  value: info.enTown == null
+                                      ? ''
+                                      : info.enTown.toString(),
                                 ),
                                 const Divider(
                                   height: 10,

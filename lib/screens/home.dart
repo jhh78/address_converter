@@ -4,6 +4,7 @@ import 'package:english_address_converter/screens/kr_search.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -16,12 +17,29 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   BannerAd? _bannerAd;
   bool _isAdLoaded = false;
   late final TabController _tabController;
+  PackageInfo _packageInfo = PackageInfo(
+    appName: 'Unknown',
+    packageName: 'Unknown',
+    version: 'Unknown',
+    buildNumber: 'Unknown',
+    buildSignature: 'Unknown',
+    installerStore: 'Unknown',
+  );
+
+  Future<void> _initPackageInfo() async {
+    final info = await PackageInfo.fromPlatform();
+    debugPrint('>>>>>>>>>>>>>>>>>>>>>>>>>>>>> $info');
+    setState(() {
+      _packageInfo = info;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
     loadAd();
+    _initPackageInfo();
   }
 
   @override
@@ -63,7 +81,18 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(AppLocalizations.of(context)!.appTitle),
+          title: Column(
+            children: [
+              Text(
+                AppLocalizations.of(context)!.appTitle,
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+              Text(
+                'v${_packageInfo.version}',
+                style: Theme.of(context).textTheme.labelLarge,
+              ),
+            ],
+          ),
           bottom: !_isAdLoaded
               ? null
               : TabBar(

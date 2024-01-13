@@ -71,8 +71,8 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        onWillPop: () async => false,
+    return PopScope(
+        canPop: false,
         child: _isLogo ? const LogoScreen() : const HomeScreen());
   }
 }
