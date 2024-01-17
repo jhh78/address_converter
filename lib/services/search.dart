@@ -49,8 +49,8 @@ class SearchModel {
       List<KRAddress> todos = [];
       List<Map> maps = await db.query('kr_address',
           columns: ['*'],
-          orderBy: 'address',
-          where: 'address like ?',
+          orderBy: 'address1',
+          where: 'address1 like ?',
           whereArgs: ['%$inputValue%']);
       for (var map in maps) {
         todos.add(KRAddress.fromJson(map));

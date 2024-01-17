@@ -1,6 +1,6 @@
 class KRAddress {
   late String? zip;
-  late String? address;
+  late String? address1;
   late String? enPrefectures;
   late String? enCity;
   late String? enTown;
@@ -8,7 +8,7 @@ class KRAddress {
 
   KRAddress(
       {this.zip,
-      this.address,
+      this.address1,
       this.enPrefectures,
       this.enCity,
       this.enTown,
@@ -17,7 +17,7 @@ class KRAddress {
   Map<String, dynamic> toMap() {
     return {
       'zip': zip,
-      'address': address,
+      'address1': address1,
       'enPrefectures': enPrefectures,
       'enCity': enCity,
       'enTown': enTown,
@@ -27,7 +27,7 @@ class KRAddress {
 
   KRAddress.fromJson(Map<dynamic, dynamic> json) {
     zip = json['zip'];
-    address = json['address'];
+    address1 = json['address1'];
     enPrefectures = json['enPrefectures'];
     enCity = json['enCity'];
     enTown = json['enTown'];
