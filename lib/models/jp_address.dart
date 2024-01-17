@@ -1,6 +1,7 @@
 class JPAddress {
   late String? zip;
-  late String? address;
+  late String? address1;
+  late String? address2;
   late String? enPrefectures;
   late String? enCity;
   late String? enTown;
@@ -8,7 +9,8 @@ class JPAddress {
 
   JPAddress({
     this.zip,
-    this.address,
+    this.address1,
+    this.address2,
     this.enPrefectures,
     this.enCity,
     this.enTown,
@@ -18,20 +20,22 @@ class JPAddress {
   Map<String, dynamic> toMap() {
     return {
       'zip': zip,
-      'address': address,
+      'address1': address1,
+      'address2': address2,
       'enPrefectures': enPrefectures,
       'enCity': enCity,
       'enTown': enTown,
-      'enStreet': null
+      'enStreet': enStreet
     };
   }
 
   JPAddress.fromJson(Map<dynamic, dynamic> json) {
     zip = json['zip'];
-    address = json['address'];
+    address1 = json['address1'];
+    address2 = json['address2'];
     enPrefectures = json['enPrefectures'];
     enCity = json['enCity'];
     enTown = json['enTown'];
-    enStreet = null;
+    enStreet = json['enStreet'];
   }
 }

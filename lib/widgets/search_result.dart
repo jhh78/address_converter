@@ -47,7 +47,7 @@ class _SearchResultState extends State<SearchResult> {
       itemBuilder: (context, builder) {
         dynamic addressInfo = widget.addressInfo[builder];
         return ListTile(
-            title: Text(addressInfo.address ?? 'na'),
+            title: Text(addressInfo.address1 ?? 'na'),
             onTap: () {
               Navigator.push(
                 context,

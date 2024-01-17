@@ -29,9 +29,9 @@ class SearchModel {
       List<JPAddress> todos = [];
       List<Map> maps = await db.query('jp_address',
           columns: ['*'],
-          orderBy: 'address',
-          where: 'address like ?',
-          whereArgs: ['%$inputValue%']);
+          orderBy: 'address1',
+          where: 'address1 like ? or address2 like ?',
+          whereArgs: ['%$inputValue%', '%$inputValue%']);
       for (var map in maps) {
         todos.add(JPAddress.fromJson(map));
       }
