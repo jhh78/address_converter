@@ -1,78 +1,40 @@
-import 'dart:async';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:english_address_converter/utils/app_config.dart';
 import 'package:english_address_converter/screens/home.dart';
-import 'package:english_address_converter/screens/logo.dart';
+import 'package:get/route_manager.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/foundation.dart';
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
-  var dbDir = await getDatabasesPath();
-  var dbPath = join(dbDir, AppConfig.dbFileName);
-  var file = File(dbPath);
 
-  // db 파일이 없을 경우에만 복사
-  if (!await file.exists()) {
-    ByteData data = await rootBundle.load("assets/${AppConfig.dbFileName}");
-    List<int> bytes =
-        data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-    await File(dbPath).writeAsBytes(bytes);
-  }
-
-  runApp(MaterialApp(
-    theme: ThemeData(
-      useMaterial3: true,
-      brightness: Brightness.dark,
-    ),
-    debugShowCheckedModeBanner: !kReleaseMode,
-    localizationsDelegates: const [
-      AppLocalizations.delegate,
-      GlobalMaterialLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-    ],
-    supportedLocales: const [
-      Locale('ja', ''),
-      Locale('ko', ''),
-    ],
-    home: const MyApp(),
-  ));
+  runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  bool _isLogo = true;
-
-  @override
-  void initState() {
-    super.initState();
-    // 어플리케이션 초기화 코드 넣을것
-    Timer(const Duration(seconds: 3), () {
-      setState(() {
-        _isLogo = false;
-      });
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return PopScope(
-        canPop: false,
-        child: _isLogo ? const LogoScreen() : const HomeScreen());
+    return GetMaterialApp(
+      theme: ThemeData(
+        useMaterial3: true,
+        brightness: Brightness.dark,
+      ),
+      debugShowCheckedModeBanner: !kReleaseMode,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('ja', ''),
+        Locale('ko', ''),
+      ],
+      home: const HomeScreen(),
+    );
   }
 }

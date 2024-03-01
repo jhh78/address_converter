@@ -1,43 +1,34 @@
-import 'package:flutter/foundation.dart';
+import 'dart:developer';
+
 import 'package:english_address_converter/models/jp_address.dart';
 import 'package:english_address_converter/models/kr_address.dart';
-import 'package:english_address_converter/utils/app_config.dart';
-import 'package:path/path.dart';
+import 'package:english_address_converter/services/database.dart';
 import 'package:sqflite/sqflite.dart';
 
 class SearchModel {
-  late Database db;
-
   String _trimInputValue(String inputValue) {
     return inputValue.replaceAll(RegExp("\\s"), "");
-  }
-
-  Future initDb() async {
-    try {
-      var dbDir = await getDatabasesPath();
-      var dbPath = join(dbDir, AppConfig.dbFileName);
-
-      db = await openDatabase(dbPath);
-    } catch (error) {
-      debugPrint('################################ $error');
-    }
   }
 
   Future<List<JPAddress>> searchJapanAddress(String inputValue) async {
     try {
       inputValue = _trimInputValue(inputValue);
       List<JPAddress> todos = [];
+
+      final Database db = await DatabaseService.initDb();
+
       List<Map> maps = await db.query('jp_address',
           columns: ['*'],
           orderBy: 'address1',
           where: 'address1 like ? or address2 like ?',
           whereArgs: ['%$inputValue%', '%$inputValue%']);
+
       for (var map in maps) {
         todos.add(JPAddress.fromJson(map));
       }
       return todos;
     } catch (error) {
-      debugPrint('################################ $error');
+      log('################################ $error');
       return [];
     }
   }
@@ -47,6 +38,7 @@ class SearchModel {
       inputValue = _trimInputValue(inputValue);
 
       List<KRAddress> todos = [];
+      final Database db = await DatabaseService.initDb();
       List<Map> maps = await db.query('kr_address',
           columns: ['*'],
           orderBy: 'address1',
@@ -57,7 +49,7 @@ class SearchModel {
       }
       return todos;
     } catch (error) {
-      debugPrint('################################ $error');
+      log('################################ $error');
       return [];
     }
   }

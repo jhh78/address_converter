@@ -18,46 +18,45 @@ class KRSearchState extends State<KRSearch> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(10),
-          child: TextField(
-            decoration: InputDecoration(
-              alignLabelWithHint: true,
-              border: const OutlineInputBorder(),
-              labelText: AppLocalizations.of(context)!.krSearchHint,
+    return Scaffold(
+      backgroundColor: Colors.black26,
+      body: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: const BoxDecoration(
+              color: Colors.black,
             ),
-            onSubmitted: (String searchWord) {
-              debugPrint(
-                  '???????????????????????????????????????? $searchWord');
-              setState(() {
-                _isProcessing = true;
-              });
-              searchModel.initDb().then((_) {
-                searchModel.searchKoreaAddress(searchWord).then((value) {
-                  debugPrint('???????????????????????????????????????? $value');
-                  setState(() {
-                    addressList = value;
-                    _isProcessing = false;
-                  });
+            child: TextField(
+              decoration: InputDecoration(
+                alignLabelWithHint: true,
+                border: const OutlineInputBorder(),
+                labelText: AppLocalizations.of(context)!.krSearchHint,
+              ),
+              onSubmitted: (String searchWord) async {
+                setState(() {
+                  _isProcessing = true;
                 });
-              });
-            },
-            textInputAction: TextInputAction.search,
+                List<KRAddress> lists =
+                    await searchModel.searchKoreaAddress(searchWord);
+                setState(() {
+                  addressList = lists;
+                  _isProcessing = false;
+                });
+              },
+              textInputAction: TextInputAction.search,
+            ),
           ),
-        ),
-        Expanded(
-          child: _isProcessing
+          _isProcessing
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
               : SearchResult(
                   addressInfo: addressList,
                   lang: 'ko',
-                ),
-        )
-      ],
+                )
+        ],
+      ),
     );
   }
 }

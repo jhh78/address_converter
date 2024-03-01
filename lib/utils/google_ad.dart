@@ -1,11 +1,8 @@
 import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 
 class AppConfig {
-  // 앱 설정 관련
-  static String get dbFileName => '20240117-1600.db';
-
+  // 배너광고
   static String bannerAdUnitId() {
     if (Platform.isAndroid) {
       return kReleaseMode
