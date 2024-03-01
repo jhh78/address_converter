@@ -5,9 +5,11 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/foundation.dart';
+import 'package:upgrader/upgrader.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Upgrader.clearSavedSettings();
   MobileAds.instance.initialize();
 
   runApp(const MyApp());
@@ -34,7 +36,7 @@ class MyApp extends StatelessWidget {
         Locale('ja', ''),
         Locale('ko', ''),
       ],
-      home: const HomeScreen(),
+      home: UpgradeAlert(child: const HomeScreen()),
     );
   }
 }

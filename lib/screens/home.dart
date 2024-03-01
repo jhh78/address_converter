@@ -36,12 +36,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   void loadBannerAd() {
     _bannerAd = BannerAd(
-      adUnitId: AppConfig.bannerAdUnitId(),
+      adUnitId: GoogleAds.bannerAdUnitId(),
       request: const AdRequest(),
       size: AdSize.banner,
       listener: BannerAdListener(
         // Called when an ad is successfully received.
         onAdLoaded: (ad) {
+          GoogleAds.createAdmobState(ad.responseInfo, 'BannerAd loaded.');
           log('>> $ad loaded.', name: 'BannerAd');
           setState(() {
             _isAdLoaded = true;
@@ -49,16 +50,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         },
         // Called when an ad request failed.
         onAdFailedToLoad: (ad, err) {
+          GoogleAds.createAdmobState(err, 'BannerAd failed.');
           log('>> BannerAd failed to load: $err', name: 'BannerAd');
           // Dispose the ad here to free resources.
           ad.dispose();
         },
       ),
-    )..load().then((value) {
-        setState(() {
-          _isAdLoaded = true;
-        });
-      });
+    )..load().then(
+        (value) {
+          setState(() {
+            _isAdLoaded = true;
+          });
+        },
+      );
   }
 
   @override
