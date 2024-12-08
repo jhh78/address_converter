@@ -1,4 +1,4 @@
-// ignore_for_file: constant_identifier_names
+const String LOCAL_BOX = 'local_box';
 
-const DATABASE_NAME = 'base.db';
-const API_URL = 'http://153.121.65.233:11000';
+const String THEME_DATA = 'local_data';
+const String POINT_DATA = 'point_data';

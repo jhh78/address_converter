@@ -1,14 +1,12 @@
 import 'package:english_address_converter/widgets/search_result_info.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/route_manager.dart';
 
 class SearchResult extends StatefulWidget {
   final List<dynamic> addressInfo;
   final String lang;
 
-  const SearchResult({Key? key, required this.addressInfo, required this.lang})
-      : super(key: key);
+  const SearchResult({Key? key, required this.addressInfo, required this.lang}) : super(key: key);
 
   @override
   State<SearchResult> createState() => _SearchResultState();
@@ -23,14 +21,14 @@ class _SearchResultState extends State<SearchResult> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              AppLocalizations.of(context)!.noSearchResult1,
+              "aaş",
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
             Text(
-              AppLocalizations.of(context)!.noSearchResult2,
+              "fdfds",
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -47,8 +45,7 @@ class _SearchResultState extends State<SearchResult> {
         itemBuilder: (context, index) {
           dynamic addressInfo = widget.addressInfo[index];
           return Padding(
-            padding:
-                const EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+            padding: const EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
             child: ListTile(
               title: Text(addressInfo.address1 ?? 'na'),
               shape: RoundedRectangleBorder(

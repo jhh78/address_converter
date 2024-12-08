@@ -1,6 +1,5 @@
 // 주소양식 : マンションの名前, 部屋番号, 番地, 市町村, 都道府県, 郵便番号, 国名
 import 'package:english_address_converter/widgets/search_result_text_block.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -27,11 +26,13 @@ class _ResultInfoState extends State<ResultInfo> {
   @override
   Widget build(BuildContext context) {
     final info = Get.arguments['info'];
-    final counrty =
-        Get.arguments['lang'] == 'ko' ? widget.koreaName : widget.japanName;
+    final counrty = Get.arguments['lang'] == 'ko' ? widget.koreaName : widget.japanName;
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.searchResultTitle),
+        title: Text(
+          "Address Information",
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -50,27 +51,18 @@ class _ResultInfoState extends State<ResultInfo> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
-                      Text(
-                          AppLocalizations.of(context)!
-                              .addressDialogHintDescriptionC,
-                          style:
-                              Theme.of(context).textTheme.titleMedium!.copyWith(
-                                    color: Colors.redAccent,
-                                  )),
-                      Text(
-                          AppLocalizations.of(context)!
-                              .addressDialogHintDescriptionD,
-                          style:
-                              Theme.of(context).textTheme.titleMedium!.copyWith(
-                                    color: Colors.redAccent,
-                                  )),
-                      Text(
-                          AppLocalizations.of(context)!
-                              .addressDialogHintDescriptionE,
-                          style:
-                              Theme.of(context).textTheme.titleMedium!.copyWith(
-                                    color: Colors.redAccent,
-                                  )),
+                      Text("The address information is displayed in English.",
+                          style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                                color: Colors.redAccent,
+                              )),
+                      Text("If you want to see the address information in the original language, please refer to the following.",
+                          style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                                color: Colors.redAccent,
+                              )),
+                      Text("If you want to see the address information in the original language, please refer to the following.",
+                          style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                                color: Colors.redAccent,
+                              )),
                     ],
                   ),
                 ),
@@ -92,7 +84,7 @@ class _ResultInfoState extends State<ResultInfo> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
                         Text(
-                          AppLocalizations.of(context)!.searchResultCartTitle1,
+                          "Address Information",
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                         const SizedBox(
@@ -100,9 +92,7 @@ class _ResultInfoState extends State<ResultInfo> {
                         ),
                         SearchResultTextBlock(
                           label: "Street",
-                          value: info.enStreet == null
-                              ? ''
-                              : info.enStreet.toString(),
+                          value: info.enStreet == null ? '' : info.enStreet.toString(),
                         ),
                         const Divider(
                           height: 10,
@@ -110,8 +100,7 @@ class _ResultInfoState extends State<ResultInfo> {
                         ),
                         SearchResultTextBlock(
                           label: "Town",
-                          value:
-                              info.enTown == null ? '' : info.enTown.toString(),
+                          value: info.enTown == null ? '' : info.enTown.toString(),
                         ),
                         const Divider(
                           height: 10,
@@ -164,7 +153,7 @@ class _ResultInfoState extends State<ResultInfo> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
                         Text(
-                          AppLocalizations.of(context)!.searchResultCartTitle2,
+                          "Address Information",
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                         const SizedBox(
@@ -176,11 +165,8 @@ class _ResultInfoState extends State<ResultInfo> {
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Text(
-                            AppLocalizations.of(context)!.searchResultApendTIp,
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelLarge!
-                                .copyWith(
+                            "The address information is displayed in English.",
+                            style: Theme.of(context).textTheme.labelLarge!.copyWith(
                                   color: Colors.tealAccent,
                                 ),
                           ),
